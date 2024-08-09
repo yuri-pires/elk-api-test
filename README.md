@@ -50,21 +50,17 @@ Isso iniciará o Elasticsearch e o Kibana. Certifique-se de que os serviços est
 ELASTIC_PASSWORD=elk2324
 ```
 
-<div style="background-color: #fff3cd; padding: 10px; border-left: 5px solid yellow; color: #000;">
-  <strong>⚠️ Aviso:</strong> Obter certificados TLS do servidor
- <p style="color: black">Ao subir o container, automaticamente o Docker irá criar na pasta raiz /certs os certificados 
- do servidor Elasticsearch, por isso realizaramos as autenticações na url localhost:9200 com https:// e mTLS</p>
+> **⚠️ Aviso:**
+>
+> Ao subir o container, automaticamente o Docker irá criar na pasta raiz `/certs` os certificados do servidor Elasticsearch. Por isso, realizamos as autenticações na URL `localhost:9200` com `https://` e mTLS.
+>
+> Tenha apenas como aviso, no projeto você verá como o RestAssured anexa o certificado na requisição.
 
- <p style="color: black">Tenha apenas como aviso, no projeto você irá ver como o RestAssured anexa através de um simples comando o certificado
- na requisição</p>
-</div>
-<br>
-<div style="background-color: #f8d7da; padding: 10px; border-left: 5px solid red; color: #000;">
-  <strong>❗ Erro:</strong> Problema com Certificados TLS
-  <p style="color: black">Se ocorrer algum erro relacionado aos certificados TLS ao subir o container, basta excluir a pasta <strong>/certs</strong> no diretório raiz do projeto e executar o Docker Compose novamente.</p>
-</div>
 
- 
+> **❌ Caso de Erro:**
+> 
+> Se encontrar problemas com os certificados, basta excluir a pasta `/certs` e executar o `docker-compose` novamente para regenerá-los.
+
 Para mais informações sobre as APIs do Elasticsearch e sua documentação, acesse o link:
 - [ELK REST API Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
 
