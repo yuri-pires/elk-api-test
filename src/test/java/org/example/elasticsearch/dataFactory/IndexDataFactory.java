@@ -12,13 +12,13 @@ import java.util.UUID;
 public class IndexDataFactory {
   public static IndexPojo createSampleIndex() {
     IndexPojo indexPojo = new IndexPojo();
-    indexPojo.setName(UUID.randomUUID().toString());
+    indexPojo.setName("elastic-" + UUID.randomUUID().toString());
     return indexPojo;
   }
 
   public static IndexPojo createIndexWithSampleMappings() {
     IndexPojo indexPojo = new IndexPojo();
-    indexPojo.setName(UUID.randomUUID().toString());
+    indexPojo.setName("elastic-" + UUID.randomUUID().toString());
 
     PropertiesPojo propertiesPojo = new PropertiesPojo();
     Map<String, PropertyPojo> properties = new HashMap<>();

@@ -5,6 +5,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.example.elasticsearch.dataFactory.IndexDataFactory;
 import org.example.elasticsearch.pojo.IndexPojo;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,11 @@ public class IndexTest {
     baseURI = "https://localhost:9200";
     useRelaxedHTTPSValidation();
     replaceFiltersWith(new RequestLoggingFilter(), new ResponseLoggingFilter());
+  }
+
+  @AfterAll
+  public static void tearDown() {
+    IndexCommands.deleteAllIndices();
   }
 
   @DisplayName("Deve criar um index com sucesso")
@@ -63,12 +69,20 @@ public class IndexTest {
   @DisplayName("Deve consultar as configurações de um index com sucesso")
   @Test
   public void testShouldGetIndexSettings() {
-    IndexPojo indexPojo =IndexDataFactory.createSampleIndex();
+    IndexPojo indexPojo = IndexDataFactory.createSampleIndex();
     IndexCommands.createIndex(indexPojo).then().statusCode(200);
 
     IndexCommands.getIndexSettings(indexPojo)
       .then()
       .statusCode(200)
       .body(indexPojo.getName()+".settings.index.number_of_shards",equalTo("1"));
+  }
+
+  @DisplayName("Deve listar todos os indices do cluster com sucesso")
+  @Test
+  public void testShouldListAllIndices() {
+    IndexCommands.listAllIndices()
+      .then()
+      .statusCode(200);
   }
 }
