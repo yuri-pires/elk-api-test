@@ -66,11 +66,13 @@ Para mais informações sobre as APIs do Elasticsearch e sua documentação, ace
 
 ## Estrutura do projeto
 
-#### 🤔 Por que Escolhemos o Elasticsearch para Praticar Testes Automatizados?
+#### 🤔 Por que Escolhemos o Elasticsearch para Praticar Testes Automatizados de APIs Rest?
 O Elasticsearch se destaca como uma escolha ideal para a prática de testes automatizados, e aqui estão os principais motivos:
 - Rica Coleção de APIs REST: O Elasticsearch oferece uma vasta gama de APIs RESTful, permitindo a simulação de cenários de teste que se assemelham muito a situações reais do mundo corporativo. Com ele, é possível testar desde operações simples até as mais complexas, garantindo a robustez e a eficácia dos seus testes automatizados.
 - Versatilidade e Relevância: O Elasticsearch é amplamente utilizado em várias indústrias para pesquisa, análise e armazenamento de dados. Ao praticar testes automatizados com o Elasticsearch, você está aprendendo a testar em um ambiente que reflete desafios reais, aprimorando suas habilidades de QA em contextos altamente relevantes e atuais.
-- Capacidade de Escalabilidade: Com suporte a grandes volumes de dados e operações complexas, o Elasticsearch é perfeito para testar a escalabilidade e a performance de sistemas, preparando você para enfrentar desafios de teste em ambientes de produção.
+- Capacidade de Escalabilidade: Com suporte a grandes volumes de dados e operações complexas, o Elasticsearch é perfeito para testar a escalabilidade e a performance de sistemas, preparando você para enfrentar desafios de teste em ambientes de produção. 
+- Testes automatizados de APIs REST são frequentemente mais rápidos e econômicos do que testes End-To-End de Interface Gráfica, conforme ressaltado por Martin Fowler em `Refactoring (1999)`, onde ele destaca a eficiência dos testes de integração em comparação com testes de interface devido à sua menor complexidade e maior foco na lógica de negócio.
+![img.png](assets/img.png)
 
 ### 📊 Índices e Documentos no Elasticsearch
 

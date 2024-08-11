@@ -79,7 +79,7 @@ public class IndexCommands {
   }
 
   /**
-   * All indices created here have the prefix elastic-
+   * All indices created here have the prefix elastic-UUID
    * The _cat api can locate this data by this prefix
    */
   public static Response listAllIndices() {
