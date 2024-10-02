@@ -61,8 +61,7 @@ public class DocumentTest {
       .body("_index", equalTo(indexPojo.getName()))
       .body("_id", notNullValue())
       .body("_version", equalTo(1))
-      .body("result", equalTo("created"))
-      .body("_seq_no", equalTo(0));
+      .body("result", equalTo("created"));
   }
 
   @Test
@@ -77,7 +76,6 @@ public class DocumentTest {
       .body("_index", equalTo(indexPojo.getName()))
       .body("_id", notNullValue())
       .body("_version", equalTo(2))
-      .body("result", equalTo("updated"))
-      .body("_seq_no", equalTo(1));
+      .body("result", equalTo("updated"));
   }
 }

@@ -1,5 +1,6 @@
 package org.example.elasticsearch.modules.document;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.example.elasticsearch.pojo.DocumentPojo;
@@ -16,34 +17,35 @@ public class DocumentCommands {
   public static Response createSampleDocumentWithDocResource(DocumentPojo documentPojo, String indexName) {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-        .body(documentPojo)
-        .when()
-        .post("/" + indexName + "/_doc");
-    } catch (
-      IOException e) {
+          .filter(new AllureRestAssured())
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .body(documentPojo)
+          .when()
+          .post("/" + indexName + "/_doc");
+    } catch (IOException e) {
       e.printStackTrace();
       return null;
     }
   }
 
-  public static Response updateSampleDocumentWithDocResource(DocumentPojo documentPojo, String indexName, String documentId) {
+  public static Response updateSampleDocumentWithDocResource(DocumentPojo documentPojo, String indexName,
+      String documentId) {
     documentPojo.setName("updated-" + UUID.randomUUID().toString());
     documentPojo.setEmail("updated@gmail.com");
     documentPojo.setAge(new Random().nextInt(100));
 
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-        .body(documentPojo)
-        .when()
-        .put("/" + indexName + "/_doc/" + documentId);
-    } catch (
-      IOException e) {
+          .filter(new AllureRestAssured())
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .body(documentPojo)
+          .when()
+          .put("/" + indexName + "/_doc/" + documentId);
+    } catch (IOException e) {
       e.printStackTrace();
       return null;
     }

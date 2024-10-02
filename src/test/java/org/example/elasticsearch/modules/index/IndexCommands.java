@@ -1,5 +1,6 @@
 package org.example.elasticsearch.modules.index;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -15,20 +16,23 @@ import static org.example.elasticsearch.utils.Certificate.readKey;
 public class IndexCommands {
   /**
    * Static methods to assist when there is a precondition that requires
-   * an index to exist before running the actual test or you need to search/delete a index.
+   * an index to exist before running the actual test or you need to search/delete
+   * a index.
    *
-   * In a real-world scenario, it's crucial to hide the basic password. Instead, you should pass it as an environment
+   * In a real-world scenario, it's crucial to hide the basic password. Instead,
+   * you should pass it as an environment
    * variable, for example:
    * String password = System.getenv("your_environment_variable_name_here");
    */
   public static Response createIndex(IndexPojo indexPojo) {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-      .when()
-        .put("/" + indexPojo.getName());
+          .filter(new AllureRestAssured())
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .when()
+          .put("/" + indexPojo.getName());
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -38,12 +42,13 @@ public class IndexCommands {
   public static Response createIndexWithMappings(IndexPojo indexPojo) {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-        .body(indexPojo.getMappings())
-      .when()
-        .put("/" + indexPojo.getName());
+          .filter(new AllureRestAssured())
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .body(indexPojo.getMappings())
+          .when()
+          .put("/" + indexPojo.getName());
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -53,11 +58,11 @@ public class IndexCommands {
   public static Response deleteIndex(IndexPojo indexPojo) {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-      .when()
-        .delete("/" + indexPojo.getName());
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .when()
+          .delete("/" + indexPojo.getName());
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -67,11 +72,11 @@ public class IndexCommands {
   public static Response getIndexSettings(IndexPojo indexPojo) {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-      .when()
-        .get("/" + indexPojo.getName() + "/_settings");
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .when()
+          .get("/" + indexPojo.getName() + "/_settings");
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -85,11 +90,11 @@ public class IndexCommands {
   public static Response listAllIndices() {
     try {
       return given()
-        .auth().certificate(readCertificate(), readKey())
-        .contentType(ContentType.JSON)
-        .auth().basic("elastic", "elk2324")
-      .when()
-        .get("/_cat/indices/elastic*?format=json");
+          .auth().certificate(readCertificate(), readKey())
+          .contentType(ContentType.JSON)
+          .auth().basic("elastic", "elk2324")
+          .when()
+          .get("/_cat/indices/elastic*?format=json");
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -98,7 +103,7 @@ public class IndexCommands {
 
   /**
    * tearDown method to clean up the environment
-   * */
+   */
   public static void deleteAllIndices() {
     IndexPojo indexPojo = new IndexPojo();
     Response response = listAllIndices().then().extract().response();
@@ -106,7 +111,7 @@ public class IndexCommands {
 
     List<String> indexNames = jsonPath.getList("index");
 
-    for(String indexName : indexNames) {
+    for (String indexName : indexNames) {
       indexPojo.setName(indexName);
       deleteIndex(indexPojo);
     }
